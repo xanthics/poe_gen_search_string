@@ -44,7 +44,7 @@ def gen_mods():
 	print('\n'.join(sorted(map_strings)))
 	with open('../gen_items.py', 'w') as f:
 		f.write('gen_bases = [\n\t')
-		f.write(',\n\t'.join([f'{{"name": "{x.replace("{0}", "#")}", "strs": {list(x.replace(" {0}", "{0}").replace("{0} ", "{0}").split("{0}"))}}}' for x in map_strings]))
+		f.write(',\n\t'.join([f'{{"name": "{x.replace("{0}", "#")}", "strs": {list(x.replace(" {0}", "{0}").replace("{0} ", "{0}").split("{0}"))}}}' for x in sorted(map_strings)]))
 		f.write('\n]')
 
 
