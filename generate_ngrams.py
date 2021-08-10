@@ -4,10 +4,30 @@ from gen_items import gen_bases
 
 
 def gen_ngrams():
+	# first keep track of the items we have to generate ngrams for
+	required = {x['name'] for x in gen_bases}
 	# generate all possible ngrams
 	ngrams = defaultdict(set)
+	bad_ngrams = set()
+	bad_bases = [
+		'Atlas:', 'Map Tier:', "Haewark Hamlet", "Tirn's End", "Lex Proxima", "Lex Ejoris", "New Vastir", "Glennach Cairns", "Valdo's Rest", "Lira Arthain",
+		'Academy', 'Acid Caverns', 'Alleyways', 'Ancient City', 'Arachnid Nest', 'Arachnid Tomb', 'Arcade', 'Arena', 'Arid Lake', 'Armoury', 'Arsenal', 'Ashen Wood', 'Atoll', 'Barrows', 'Basilica', 'Bazaar', 'Beach', 'Belfry', 'Bog', 'Bone Crypt', 'Bramble Valley', 'Burial Chambers', 'Cage', 'Caldera', 'Canyon', 'Carcass', 'Castle Ruins', 'Cells',
+		'Cemetery', 'Channel', 'Chateau', 'City Square', 'Cold River', 'Colonnade', 'Colosseum', 'Conservatory', 'Coral Ruins', 'Core', 'Courthouse', 'Courtyard', 'Coves', 'Crater', 'Crimson Temple', 'Crimson Township', 'Crystal Ore', 'Cursed Crypt', 'Dark Forest', 'Defiled Cathedral', 'Desert', 'Desert Spring', 'Dig', 'Dry Sea', 'Dunes', 'Dungeon',
+		'Estuary', 'Excavation', 'Factory', 'Fields', 'Flooded Mine', 'Forbidden Woods', 'Forge of the Phoenix', 'Forking River', 'Foundry', 'Frozen Cabins', 'Fungal Hollow', 'Gardens', 'Geode', 'Ghetto', 'Glacier', 'Grave Trough', 'Graveyard', 'Grotto', 'Haunted Mansion', 'Iceberg', 'Infested Valley', 'Ivory Temple', 'Jungle Valley', 'Laboratory', 'Lair',
+		'Lair of the Hydra', 'Lava Chamber', 'Lava Lake', 'Leyline', 'Lighthouse', 'Lookout', 'Malformation', 'Marshes', 'Mausoleum', 'Maze', 'Maze of the Minotaur', 'Mesa', 'Mineral Pools', 'Moon Temple', 'Mud Geyser', 'Museum', 'Necropolis', 'Orchard', 'Overgrown Ruin', 'Overgrown Shrine', 'Palace', 'Park', 'Pen', 'Peninsula', 'Phantasmagoria', 'Pier',
+		'Pit', 'Pit of the Chimera', 'Plateau', 'Plaza', 'Port', 'Precinct', 'Primordial Blocks', 'Primordial Pool', 'Promenade', 'Racecourse', 'Ramparts', 'Reef', 'Relic Chambers', 'Residence', 'Scriptorium', 'Sepulchre', 'Shipyard', 'Shore', 'Shrine', 'Siege', 'Silo', 'Spider Forest', 'Spider Lair', 'Stagnation', 'Strand', 'Sulphur Vents', 'Summit',
+		'Sunken City', 'Temple', 'Terrace', 'The Beachhead', 'Thicket', 'Tower', 'Toxic Sewer', 'Tropical Island', 'Underground River', 'Underground Sea', 'Vaal Pyramid', 'Vaal Temple', 'Vault', 'Villa', 'Volcano', 'Waste Pool', 'Wasteland', 'Waterways', 'Wharf'
+	]
+	for item in bad_bases:
+		for i in range(len(item)):
+			for j in range(i + 1, len(item) + 1):
+				ch = item[i:j]
+				if len(ch) > 46:
+					continue
+				if ch[0] != ' ' and ch[-1] != ' ':
+					bad_ngrams.add(ch.lower())
 	for item in gen_bases:
-		base = item['name'].lower()
+		base = item['name'].lower() if 'name' in item else item['strs'].lower()
 		for x in item['strs']:
 			for i in range(len(x)):
 				for j in range(i + 1, len(x) + 1):
@@ -16,6 +36,7 @@ def gen_ngrams():
 						continue
 					if ch[0] != ' ' and ch[-1] != ' ':
 						ngrams[base].add(ch.lower())
+		ngrams[base] -= bad_ngrams
 	# remove all ngrams that are too common
 	threshold = 30
 	counts = defaultdict(int)
@@ -29,6 +50,8 @@ def gen_ngrams():
 	for base in ngrams.copy():
 		ngrams[base] -= common_grams
 		if not ngrams[base]:
+			if base in required:
+				print("*** REQUIRED ITEM ***", end=' ')
 			print(f"removing {base} because it is empty")
 			del ngrams[base]
 	# find all bases that are a substring of other base(s)
