@@ -78,4 +78,3 @@ def first_load():
 
 
 first_load()
-select_visible(None)

@@ -180,10 +180,6 @@ table {
     width: 10em;
 }
 
-.col_2 {
-    width: 15em;
-}
-
 table.borders th,
 table.borders td {
     border: 1px solid black;
@@ -357,6 +353,11 @@ option {
 
 .right_text {
     text-align: right;
+}
+
+.left_text {
+    padding-left: 5px;
+    text-align: left;
 }
 
 .center {

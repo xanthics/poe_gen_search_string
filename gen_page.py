@@ -16,12 +16,12 @@ def init_page():
 	doc['show_hide'] <= BUTTON("Clear Selected", Id='clear_selected')
 
 	# Load and display data
-	t = TABLE(TR(TH("Selected", Class='col_1') + TH("Mod", Class='col_2')), Class="borders onehundred")
+	t = TABLE(TR(TH("Selected", Class='col_1') + TH("Mod")), Class="borders onehundred")
 	data = {x['name'] for x in gen_items.gen_bases}
 	for base in sorted(data):
 		base_l = base.lower()
 		searchstring = base_l
-		t <= TR(TD(INPUT(Id=f"check-{base_l.replace(' ', '_')}", type='checkbox', data_id=base_l, Class='save')) + TD(base), data_id=base_l, data_search=searchstring)
+		t <= TR(TD(INPUT(Id=f"check-{base_l.replace(' ', '_')}", type='checkbox', data_id=base_l, Class='save')) + TD(base, Class="left_text"), data_id=base_l, data_search=searchstring)
 
 	doc['items'] <= t
 
