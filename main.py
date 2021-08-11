@@ -7,7 +7,7 @@ myWorker = worker.Worker("myworker")
 
 
 # Function handling filtering changes
-@bind('.save', 'change')
+@bind('.save', 'input')
 def save_state(ev):
 	if ev.target.id == 'keywords':
 		search_terms = ev.target.value.lower().split()
