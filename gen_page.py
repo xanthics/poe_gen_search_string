@@ -8,7 +8,7 @@ import gen_items
 def init_page():
 	# selected
 	t = TABLE(TR(TH() + TH('Selection')))
-	t <= TR(TD("Keyword(s) Search:", Class="right_text") + TD(INPUT(Type='text', Id="keywords", Class='save')))
+	t <= TR(TD("Keyword(s) Search:", Class="right_text") + TD(INPUT(Type='text', Id="keywords", Class='save') + BUTTON('x', Id='clear_keywords')))
 	doc['show_hide'] <= t
 	doc['show_hide'] <= DIV(BUTTON("Generate String", Id='generate') + " Will generate search strings based on all selected rows.  This will cause many calculations and may take a bit to return a result")
 	doc['show_hide'] <= DIV("No strings generated yet.", Id="generated_strings", Class='sec_div grind')
