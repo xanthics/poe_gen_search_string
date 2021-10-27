@@ -9,10 +9,10 @@ def gen_mods():
 
 	map_mods = set()
 	for mod in mods:
-		if any(x['weight'] > 0 for x in mods[mod]['spawn_weights'] if 'tier_map' in x['tag']):
+		if mods[mod]['generation_type'] in ['prefix', 'suffix'] and (any(x['weight'] > 0 for x in mods[mod]['spawn_weights'] if 'tier_map' in x['tag']) or (mods[mod]['domain'] == 'area' and any(x['weight'] > 0 for x in mods[mod]['spawn_weights'] if x['tag'] == 'default'))):
 			for stat in mods[mod]['stats']:
 				map_mods.add(stat['id'])
-
+	map_mods.remove('dummy_stat_display_nothing')
 	map_strings = set()
 	bad_mods = {
 		'Ground Effect has a radius of {0}',
@@ -33,19 +33,29 @@ def gen_mods():
 		'Monsters have {0}% reduced Accuracy Rating',
 		'Monsters have {0}% reduced Area of Effect',
 		'Monsters have {0}% reduced Critical Strike Chance',
-		'Monsters take {0}% increased Extra Damage from Critical Strikes'
+		'Monsters take {0}% increased Extra Damage from Critical Strikes',
+		'Players Prevent {0}% of Suppressed Spell Damage',
+		'Players fire {1} additional Projectiles'
 	}
-
+	found_mods = set()
 	for stat in stats:
 		if any(x in map_mods for x in stat['ids']):
+			for x in stat['ids']:
+				found_mods.add(x)
 			for modstr in stat['English']:
 				if modstr['string'] not in bad_mods:
 					map_strings.add(modstr['string'])
 	print('\n'.join(sorted(map_strings)))
-	with open('../gen_items.py', 'w') as f:
-		f.write('gen_bases = [\n\t')
-		f.write(',\n\t'.join([f'{{"name": "{x.replace("{0}", "#")}", "strs": {list(x.replace(" {0}", "{0}").replace("{0} ", "{0}").split("{0}"))}}}' for x in sorted(map_strings)]))
-		f.write('\n]')
+	if map_mods - found_mods:
+		print("\n*** Missing mods ***\n" + '\n'.join(map_mods - found_mods) + "\n*** Missing mods ***\n")
+	if __name__ == "__main__":
+		f = open('../gen_items.py', 'w')
+	else:
+		f = open('gen_items.py', 'w')
+
+	f.write('gen_bases = [\n\t')
+	f.write(',\n\t'.join([f'{{"name": "{x.replace("{0}", "#")}", "strs": {list(x.replace(" {0}", "{0}").replace("{0} ", "{0}").split("{0}"))}}}' for x in sorted(map_strings)]))
+	f.write('\n]')
 
 
 if __name__ == '__main__':
