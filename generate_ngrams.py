@@ -27,7 +27,7 @@ def gen_ngrams():
 				if ch[0] != ' ' and ch[-1] != ' ':
 					bad_ngrams.add(ch.lower())
 	for item in gen_bases:
-		base = item['name'].lower() if 'name' in item else item['strs'].lower()
+		base = item['name'].lower()
 		for x in item['strs']:
 			for i in range(len(x)):
 				for j in range(i + 1, len(x) + 1):
@@ -36,19 +36,23 @@ def gen_ngrams():
 						continue
 					if ch[0] != ' ' and ch[-1] != ' ':
 						ngrams[base].add(ch.lower())
-		ngrams[base] -= bad_ngrams
 	# remove all ngrams that are too common
-	threshold = 30
 	counts = defaultdict(int)
+	base_pairs = defaultdict(str)
 	for base in ngrams:
+		ngrams[base] -= bad_ngrams
 		for gram in ngrams[base]:
 			counts[gram] += 1
-	common_grams = set()
-	for item in counts:
-		if counts[item] > threshold:
-			common_grams.add(item)
+			base_pairs[gram] += base
 	for base in ngrams.copy():
-		ngrams[base] -= common_grams
+		# only need to keep track of 1 unique key per base
+		# double sorted for stable results
+		seen_combo = set()
+		for key in sorted(sorted(ngrams[base]), key=len):
+			if base_pairs[key] in seen_combo:
+				ngrams[base].discard(key)
+			else:
+				seen_combo.add(base_pairs[key])
 		if not ngrams[base]:
 			if base in required:
 				print("*** REQUIRED ITEM ***", end=' ')
