@@ -35,7 +35,11 @@ def gen_mods():
 		'Monsters have {0}% reduced Critical Strike Chance',
 		'Monsters take {0}% increased Extra Damage from Critical Strikes',
 		'Players Prevent {0}% of Suppressed Spell Damage',
-		'Players fire {1} additional Projectiles'
+		'Players fire {1} additional Projectiles',
+		'Buffs on Players expire {0}% slower',
+		"Players have {0}% more Accuracy Rating",
+		"Players have {0}% more Cooldown Recovery Rate",
+		"Players have {0}% increased effect of Non-Curse Auras from Skills",
 	}
 	found_mods = set()
 	for stat in stats:
