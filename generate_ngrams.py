@@ -16,7 +16,8 @@ def gen_ngrams():
 		'Estuary', 'Excavation', 'Factory', 'Fields', 'Flooded Mine', 'Forbidden Woods', 'Forge of the Phoenix', 'Forking River', 'Foundry', 'Frozen Cabins', 'Fungal Hollow', 'Gardens', 'Geode', 'Ghetto', 'Glacier', 'Grave Trough', 'Graveyard', 'Grotto', 'Haunted Mansion', 'Iceberg', 'Infested Valley', 'Ivory Temple', 'Jungle Valley', 'Laboratory', 'Lair',
 		'Lair of the Hydra', 'Lava Chamber', 'Lava Lake', 'Leyline', 'Lighthouse', 'Lookout', 'Malformation', 'Marshes', 'Mausoleum', 'Maze', 'Maze of the Minotaur', 'Mesa', 'Mineral Pools', 'Moon Temple', 'Mud Geyser', 'Museum', 'Necropolis', 'Orchard', 'Overgrown Ruin', 'Overgrown Shrine', 'Palace', 'Park', 'Pen', 'Peninsula', 'Phantasmagoria', 'Pier',
 		'Pit', 'Pit of the Chimera', 'Plateau', 'Plaza', 'Port', 'Precinct', 'Primordial Blocks', 'Primordial Pool', 'Promenade', 'Racecourse', 'Ramparts', 'Reef', 'Relic Chambers', 'Residence', 'Scriptorium', 'Sepulchre', 'Shipyard', 'Shore', 'Shrine', 'Siege', 'Silo', 'Spider Forest', 'Spider Lair', 'Stagnation', 'Strand', 'Sulphur Vents', 'Summit',
-		'Sunken City', 'Temple', 'Terrace', 'The Beachhead', 'Thicket', 'Tower', 'Toxic Sewer', 'Tropical Island', 'Underground River', 'Underground Sea', 'Vaal Pyramid', 'Vaal Temple', 'Vault', 'Villa', 'Volcano', 'Waste Pool', 'Wasteland', 'Waterways', 'Wharf'
+		'Sunken City', 'Temple', 'Terrace', 'The Beachhead', 'Thicket', 'Tower', 'Toxic Sewer', 'Tropical Island', 'Underground River', 'Underground Sea', 'Vaal Pyramid', 'Vaal Temple', 'Vault', 'Villa', 'Volcano', 'Waste Pool', 'Wasteland', 'Waterways', 'Wharf',
+		"Item Rarity", "Item Quantity", "Monster Pack Size"
 	]
 	for item in bad_bases:
 		for i in range(len(item)):
