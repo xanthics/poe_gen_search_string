@@ -22,19 +22,20 @@ from generate_ngrams import gen_ngrams
 # load the page in firefox-selenium and return the html
 def load_page_firefox(page_name):
 	from selenium.webdriver.firefox.options import Options
-	profile = webdriver.FirefoxProfile()
-	profile.set_preference("permissions.default.image", 2)
+	from selenium.webdriver.firefox.service import Service
 	options = Options()
+	options.set_preference("permissions.default.image", 2)
 	options.headless = True
 	options.log.level = "fatal"
-	driver = webdriver.Firefox(options=options, executable_path=getcwd() + '\\geckodriver.exe', firefox_profile=profile)
+	service = Service(getcwd() + '\\geckodriver.exe')
+	driver = webdriver.Firefox(options=options, service=service)
 	driver.get(page_name)
 	try:
 		WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "prerendered")))
 	except TimeoutException as err:
 		print(err)
 		exit(-1)
-	html = driver.find_element_by_tag_name('html').get_attribute('outerHTML')
+	html = driver.page_source
 	driver.quit()
 	return html
 
