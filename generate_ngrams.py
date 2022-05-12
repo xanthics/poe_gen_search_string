@@ -17,7 +17,13 @@ def gen_ngrams():
 		'Lair of the Hydra', 'Lava Chamber', 'Lava Lake', 'Leyline', 'Lighthouse', 'Lookout', 'Malformation', 'Marshes', 'Mausoleum', 'Maze', 'Maze of the Minotaur', 'Mesa', 'Mineral Pools', 'Moon Temple', 'Mud Geyser', 'Museum', 'Necropolis', 'Orchard', 'Overgrown Ruin', 'Overgrown Shrine', 'Palace', 'Park', 'Pen', 'Peninsula', 'Phantasmagoria', 'Pier',
 		'Pit', 'Pit of the Chimera', 'Plateau', 'Plaza', 'Port', 'Precinct', 'Primordial Blocks', 'Primordial Pool', 'Promenade', 'Racecourse', 'Ramparts', 'Reef', 'Relic Chambers', 'Residence', 'Scriptorium', 'Sepulchre', 'Shipyard', 'Shore', 'Shrine', 'Siege', 'Silo', 'Spider Forest', 'Spider Lair', 'Stagnation', 'Strand', 'Sulphur Vents', 'Summit',
 		'Sunken City', 'Temple', 'Terrace', 'The Beachhead', 'Thicket', 'Tower', 'Toxic Sewer', 'Tropical Island', 'Underground River', 'Underground Sea', 'Vaal Pyramid', 'Vaal Temple', 'Vault', 'Villa', 'Volcano', 'Waste Pool', 'Wasteland', 'Waterways', 'Wharf',
-		"Item Rarity", "Item Quantity", "Monster Pack Size", "Class"
+		"Item Rarity", "Item Quantity", "Monster Pack Size", "Class",
+	]
+	map_name_prefix = [
+
+	]
+	map_name_suffix = [
+
 	]
 	for item in bad_bases:
 		for i in range(len(item)):
